@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # Banco de dados Postgres
   postgres:
     image: postgres:15-alpine
     container_name: postgres_db
@@ -13,6 +14,47 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+
+  # Localstack para simular SQS
+  localstack:
+    image: localstack/localstack:3.7.2
+    hostname: localstack
+    container_name: localstack
+    environment:
+      - AWS_DEFAULT_REGION=sa-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - SERVICES=sqs
+      - SKIP_SSL_CERT_DOWNLOAD=1
+      - DISABLE_EVENTS=1
+    ports:
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4510-4559:4510-4559"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:4566/_localstack/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - app-network
+
+  # Serviço que popula a SQS
+  message-generator:
+    image: golang:1.24.3
+    container_name: message-generator
+    depends_on:
+      localstack:
+        condition: service_healthy
+    environment:
+      - QUEUE_NAME=transacoes-financeiras-processadas
+      - LOCALSTACK_ENDPOINT=http://localstack:4566
+      - TOTAL_TRANSACTIONS=300000
+      - TOTAL_ACCOUNTS=10000
+      - MIN_TRANSACTION_AMOUNT=10
+      - MAX_TRANSACTION_AMOUNT=5000
     networks:
       - app-network
 

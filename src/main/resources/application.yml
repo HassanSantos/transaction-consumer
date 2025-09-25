@@ -17,11 +17,6 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-  batch:
-    jdbc:
-      initialize-schema: always
-    job:
-      enabled: false
 
 resilience4j:
   retry:
