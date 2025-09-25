@@ -12,7 +12,7 @@
         "id": "affa65f2-8581-4d8e-8ac2-906472663d43",
         "owner": "db358e41-2fe2-4329-9407-1b793cf94aee",
         "created_at": "1634874339",
-        "status": "EMABLED",
+        "status": "ENABLED",
         "balance": {
             "amount": 183.12,
             "currency": "BRL"
