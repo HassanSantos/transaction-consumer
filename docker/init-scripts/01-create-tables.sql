@@ -7,8 +7,8 @@ CREATE TABLE transaction_schema.account (
                                             owner UUID NOT NULL,
                                             created_at BIGINT NOT NULL,
                                             status VARCHAR(20) NOT NULL CHECK (status IN ('ENABLED', 'DISABLED')),
-                                            balance_amount DECIMAL(15,2) NOT NULL,
-                                            balance_currency VARCHAR(3) NOT NULL DEFAULT 'BRL',
+                                            amount DECIMAL(15,2) NOT NULL,
+                                            currency VARCHAR(3) NOT NULL DEFAULT 'BRL',
                                             last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                             version INTEGER DEFAULT 0
 );
