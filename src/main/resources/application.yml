@@ -44,6 +44,8 @@ management:
     web:
       exposure:
         include: health,metrics,info
-  endpoint:
-    health:
-      show-details: always
+
+aws:
+  sqs:
+    queue:
+      transactions: transacoes-financeiras-processadas

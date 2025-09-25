@@ -5,11 +5,10 @@ CREATE SCHEMA IF NOT EXISTS transaction_schema;
 CREATE TABLE transaction_schema.account (
                                             id UUID PRIMARY KEY,
                                             owner UUID NOT NULL,
-                                            created_at BIGINT NOT NULL,
+                                            created_at TIMESTAMP NOT NULL,
                                             status VARCHAR(20) NOT NULL CHECK (status IN ('ENABLED', 'DISABLED')),
                                             amount DECIMAL(15,2) NOT NULL,
                                             currency VARCHAR(3) NOT NULL DEFAULT 'BRL',
-                                            last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                             version INTEGER DEFAULT 0
 );
 
