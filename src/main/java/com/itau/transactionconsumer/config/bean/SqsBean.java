@@ -21,9 +21,9 @@ public class SqsBean {
                 .builder()
                 .sqsAsyncClient(sqsAsyncClient)
                 .configure(options -> options
-                        .acknowledgementMode(AcknowledgementMode.ALWAYS) // Sempre confirma o recebimento da mensagem
-                        .maxConcurrentMessages(10) // Número de mensagens processadas simultaneamente por thread
-                        .maxMessagesPerPoll(10) // Número máximo de mensagens por poll
+                        .acknowledgementMode(AcknowledgementMode.ALWAYS)
+                        .maxConcurrentMessages(100)
+                        .maxMessagesPerPoll(10)
                 )
                 .build();
     }

@@ -15,6 +15,8 @@ import org.springframework.messaging.Message;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @RequiredArgsConstructor
 public class TransactionConsumer {
@@ -29,6 +31,8 @@ public class TransactionConsumer {
     @Async("asyncExecutor")
     public void receiveTransaction(Message<TransactionMessage> message) {
         try {
+
+            logger.info("testando se funciona -------------", LocalDateTime.now());
             TransactionMessage payload = message.getPayload();
             logger.info("Received transaction: {}", payload.transaction().id());
 
